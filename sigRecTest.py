@@ -5,15 +5,16 @@ import sounddevice as sd
 import matplotlib.pyplot as plt
 import numpy as np
 from fractions import Fraction
+import config as cfg
 
 # Setting up sounddevice defaults
 duration = 2
-fs = 48000
-sd.default.samplerate = fs
-sd.default.channels = 2
-sd.default.dtype = 'float32'
+#fs = 48000
+sd.default.samplerate = cfg.fs
+sd.default.channels = cfg.channels # 2
+sd.default.dtype = cfg.dtype # 'float32'
 
-PLL = 15
+PLL = cfg.PLL # 15
 # Create si5351 object
 i2c = busio.I2C(board.SCL, board.SDA)
 si5351 = adafruit_si5351.SI5351(i2c)
@@ -69,15 +70,19 @@ den = 100
 
 dataIn = []
 totalSamples = 480
-for i in range(5):
+set_frequency(0,5000000-155)
+set_frequency(2,5000000)
+
+dataIn = sd.rec(480)
+
+#for i in range(5):
     #si5351.outputs_enabled = False
     #si5351.clock_0.configure_fractional(si5351.pll_a, base, 25*i, den)
 
     # JD suggest using this with np.arrange[4000 1000 4000000] to get evenly space array of freqs
-    set_frequency(0,5000000-155)
     #si5351.outputs_enabled = True
-    dataIn.extend(sd.rec(int(480/5)))
-    sd.wait()
+#    dataIn.extend(sd.rec(int(480/5)))
+#    sd.wait()
 
 
 sd.wait()
@@ -85,15 +90,23 @@ print(dataIn[0][1])
 print('CLK 0: {0} Hz'.format(si5351.clock_0.frequency))
 dataLeft = [row[0] for row in dataIn]
 dataRight = [row[1] for row in dataIn]
+# print(np.fft.fft2(dataRight))
 t = np.arange(0, .01, 1/48000)
+
+
+list3 = [list(a) for a in zip(t,dataRight)]
+# print(np.fft.rfft2(list3))
 
 #print(np.fft.fft(dataRight))
 
 plt.plot(t, dataRight, 'ro', markersize=1)
 
-# plt.figure()
-# plt.plot(t, dataLeft, 'r--', markersize = 1)
+#plt.figure()
+#plt.plot(t, dataLeft, 'r--', markersize = 1)
 
 plt.show()
 
+
+# Test with signal generator
+# Soundcard is peaking at +/- 1 V
 
