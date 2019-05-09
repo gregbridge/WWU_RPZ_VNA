@@ -6,3 +6,4 @@ fs = 48000
 channels = 2
 dtype = 'float32'
 PLL = 15
+freq_bias = 150
