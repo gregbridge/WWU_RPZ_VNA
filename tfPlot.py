@@ -75,7 +75,7 @@ def set_frequency(CLK, freq):
 print('Pre-calculating...')
 # N*T = n * (150 Hz) We will use n = 2
 n = 2
-N = int(n * cfg.freq_bias * cfg.fs / 10 )   # n = 2, dividing sample size by 10
+N = int(n * cfg.fs / cfg.freq_bias )   # n = 2, dividing sample size by 10
 
 # Building e^(2*np.pi*1j*K*n/N) array for all K points
 K = np.arange(0, N, 1)
@@ -106,6 +106,7 @@ for i in range(len(F_2)):
     set_frequency(2, F_2[i] - cfg.freq_bias)
     set_frequency(1, F_2[i])
     set_frequency(0, F_2[i])
+
     print('.')
     # Adding print statements to update user
     if(int((len(F_2))/2) == i):
@@ -119,9 +120,9 @@ for i in range(len(F_2)):
     sd.wait()            
     si5351.outputs_enabled = False
 
-    
-    dataR = np.fft.fftshift(np.fft.fft(data[:,0]))
-    dataL = np.fft.fftshift(np.fft.fft(data[:,1]))
+
+    dataR = data[:,0]    # np.fft.fft(data[:,0])
+    dataL = data[:,1]    # np.fft.fft(data[:,1])
 
     REF.append(np.dot(dataR,exp_array)) 
     TST.append(np.dot(dataL,exp_array))
@@ -142,7 +143,7 @@ sd.wait()
 print('Mathing...')
 
 # Converting to polar and creating magnitude arrays
-MAG = np.abs(TST) / np.abs(REF)
+MAG = 20 * np.log10 (np.abs(TST) / np.abs(REF) )
 PHASE = np.angle(TST) - np.angle(REF)
 
 print('Plotting...')
