@@ -53,52 +53,45 @@ def set_frequency(CLK, freq):
     return;
 
 
-totalSamples = 4800/10
-set_frequency(0,5000000-cfg.freq_bias)  # Freq. Local less than Output by 150 Hz
-set_frequency(2,5000000)
+duration = 0.05
 
-# dataIn = sd.rec(480)
-F = np.arange(1000000, 10000000, 1000000)        # 0 -> 10MHz, in 1Mhz steps 
-dataLeft = []
-dataRight = []
+set_frequency(2,5000000-cfg.freq_bias)  # Freq. Local less than Output by 150 Hz
+set_frequency(1,5000000)
+set_frequency(0,5000000)
 
 
-for i in range(len(F) + 1):
-    # Clock 0 is LO_I for switch driving
-    # set_frequency(0, F[i] - cfg.freq_bias)
-    # Clock 2 is Output signal
-    # set_frequency(2, F[i])
-    si5351.outputs_enabled = True
-    data = sd.rec(int(totalSamples))
-    sd.wait()            
-    si5351.outputs_enabled = False
-    
-    dataLeft.extend(np.fft.fftshift(np.fft.fft(data[:,0])/totalSamples))     
-    dataRight.extend(np.fft.fftshift(np.fft.fft(data[:,1])/totalSamples))
-    
-    
-# One extra sd.wait() just in case likely will remove.
-sd.wait()
+#F = np.arange(1000000, 10000000, 1000000)        # 0 -> 10MHz, in 1Mhz steps 
+#dataLeft = []
+#dataRight = []
+
+si5351.outputs_enabled = True
+data = sd.rec(int(duration * cfg.fs))
+sd.wait()            
+si5351.outputs_enabled = False
+
 
 print('CLK 0: {0} Hz'.format(si5351.clock_0.frequency))
-t = np.arange(0, .01, 1/48000)
 T = 1/cfg.fs
-new_axis = np.arange(-1/(2*T),1/(2*T),1/(T*totalSamples*10))
-#print(dataLeft)
+t = np.arange(0, duration, T)
 
-plt.plot(t, data, markersize=1)
+
+plt.plot(t, data[:,0], markersize=1)
+plt.title('REF on Left channel: data[:,0]')
 plt.figure()
 
-plt.plot(new_axis, np.abs(dataRight), 'ro', markersize=1)
-plt.title('Data on Channel Right In[1]')
+plt.plot(t, data[:,1], markersize=1)
+plt.title('TEST on Right channel: data[:,1]')
 
-plt.figure()
-plt.plot(new_axis, np.abs(dataLeft), 'r--', markersize = 1)
-plt.title('Data on Channel Left In[0]')
+#plt.plot(new_axis, np.abs(dataRight), 'ro', markersize=1)
+#plt.title('Data on Channel Right In[1]')
 
+#plt.figure()
+#plt.plot(new_axis, np.abs(dataLeft), 'r--', markersize = 1)
+#plt.title('Data on Channel Left In[0]')
 
 plt.show()
-si5351.outputs_enabled = True
+print('test')
+#si5351.outputs_enabled = True
 
 
 
