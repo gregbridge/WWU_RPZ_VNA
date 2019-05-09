@@ -1,0 +1,17 @@
+Small Running list of libraries needed for installation
+
+	RPI.GPIO
+
+	Adafruit SI5351A libary <need link>
+
+	libffi-dev libffi6
+
+	sounddevice
+
+	numpy
+
+	probably scikit-rf
+
+last update 5/20
+
+
