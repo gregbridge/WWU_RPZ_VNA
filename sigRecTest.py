@@ -49,7 +49,6 @@ def set_frequency(CLK, freq):
         si5351.clock_0.configure_fractional(
             si5351.pll_a, base, x.numerator,x.denominator)
 
-    #si5351.outputs_enabled = True
     return;
 
 
@@ -59,10 +58,6 @@ set_frequency(2,5000000-cfg.freq_bias)  # Freq. Local less than Output by 150 Hz
 set_frequency(1,5000000)
 set_frequency(0,5000000)
 
-
-#F = np.arange(1000000, 10000000, 1000000)        # 0 -> 10MHz, in 1Mhz steps 
-#dataLeft = []
-#dataRight = []
 
 si5351.outputs_enabled = True
 data = sd.rec(int(duration * cfg.fs))
@@ -82,16 +77,9 @@ plt.figure()
 plt.plot(t, data[:,1], markersize=1)
 plt.title('TEST on Right channel: data[:,1]')
 
-#plt.plot(new_axis, np.abs(dataRight), 'ro', markersize=1)
-#plt.title('Data on Channel Right In[1]')
-
-#plt.figure()
-#plt.plot(new_axis, np.abs(dataLeft), 'r--', markersize = 1)
-#plt.title('Data on Channel Left In[0]')
-
 plt.show()
 print('test')
-#si5351.outputs_enabled = True
+si5351.outputs_enabled = False
 
 
 
