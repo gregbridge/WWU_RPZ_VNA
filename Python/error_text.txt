@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "tfPlot.py", line 120, in <module>
+    data = sd.rec(N, blocking = True)
+  File "/usr/local/lib/python3.5/dist-packages/sounddevice.py", line 224, in rec
+    ctx.input_dtype, callback, blocking, **kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/sounddevice.py", line 2417, in start_stream
+    **kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/sounddevice.py", line 1301, in __init__
+    **_remove_self(locals()))
+  File "/usr/local/lib/python3.5/dist-packages/sounddevice.py", line 780, in __init__
+    'Error opening {0}'.format(self.__class__.__name__))
+  File "/usr/local/lib/python3.5/dist-packages/sounddevice.py", line 2570, in _check
+    raise PortAudioError(errormsg, err, hosterror_info)
+sounddevice.PortAudioError: Error opening InputStream: Unanticipated host error [PaErrorCode -9999]: 'Input/output error' [ALSA error -5]
+
