@@ -7,6 +7,8 @@ Written for WWU_RPZ_VNA board
 
 import board
 import busio
+#import sys
+#import getopt
 import adafruit_si5351
 import sounddevice as sd
 import matplotlib.pyplot as plt
@@ -15,15 +17,11 @@ import time
 from fractions import Fraction
 import config as cfg
 
-# There is an occasional error with PortAudio and sounddevice
-# So here is a little useless record so that the program triggers
-# the error without wasting time. I WILL IMPLEMENT LATER
-#temp = sd.rec(1)
-#sd.wait()
 
 
 # Starting timer to check total run-time
 tic = time.clock()
+sweep = True
 
 # In case of divide by zero or NA
 np.seterr(divide='ignore', invalid='ignore')
@@ -32,6 +30,7 @@ np.seterr(divide='ignore', invalid='ignore')
 # Soundcard is clipping at +/- 1 V
 duration = 2
 
+sd.default.device = 0
 sd.default.samplerate = cfg.fs
 sd.default.channels = cfg.channels # 2
 sd.default.dtype = cfg.dtype # 'float32'
@@ -96,40 +95,42 @@ TST = []
 # CLK 2 - LO_I
 
 F_1 = np.arange(100000, 1000000, 50000)            # 50 kHz -> 1MHz, in 25kHz steps 
-F_2 = np.arange(1000000, 11000000, 1000000)       # 1 MHz -> 10 MHz, in 1 MHz steps
+F_2 = np.arange(1000000, 11000000, 100000)       # 1 MHz -> 10 MHz, in 1 MHz steps
 F_3 = np.arange(10000000, 100000000, 10000000)    # 10 -> 100 MHz, in 10 MHz
 
-print('Sweeping Frequencies')
 
-# Second set of Frequencies (Lower frequencies more)
-for i in range(len(F_2)):
-    set_frequency(2, F_2[i] - cfg.freq_bias)
-    set_frequency(1, F_2[i])
-    set_frequency(0, F_2[i])
+if(sweep):
+    print('Sweeping Frequencies')
+    # Second set of Frequencies (Lower frequencies more)
+    for i in range(len(F_2)):
+        set_frequency(2, F_2[i] - cfg.freq_bias)
+        set_frequency(1, F_2[i])
+        set_frequency(0, F_2[i])
 
-    print('.')
-    # Adding print statements to update user
-    if(int((len(F_2))/2) == i):
-        print('50% done with current freq. sweep')
+        print('.')
+        # Adding print statements to update user
+        if(int((len(F_2))/2) == i):
+            print('50% done with current freq. sweep')
 
-    # Enable signal and read signals
-    si5351.outputs_enabled = True
-    data = sd.rec(N)
-        # data[:,0] is Right channel which is REF
-        # data[:,1] is Left channel which is TEST
-    sd.wait()            
-    si5351.outputs_enabled = False
+        # Enable signal and read signals
+        si5351.outputs_enabled = True
+        time.sleep(2)               # Delay to allow Soundcard Cap to charge
+        data = sd.rec(N)
+            # data[:,0] is Right channel which is REF
+            # data[:,1] is Left channel which is TEST
+        sd.wait()            
+        si5351.outputs_enabled = False
 
 
-    dataR = data[:,0]    # np.fft.fft(data[:,0])
-    dataL = data[:,1]    # np.fft.fft(data[:,1])
+        dataR = data[:,0]    # np.fft.fft(data[:,0])
+        dataL = data[:,1]    # np.fft.fft(data[:,1])
 
-    REF.append(np.dot(dataR,exp_array)) 
-    TST.append(np.dot(dataL,exp_array))
+        REF.append(np.dot(dataR,exp_array)) 
+        TST.append(np.dot(dataL,exp_array))
 
-    # These are if the Frequency values are needed
-    # REF.append([F_2[i],np.dot(dataR,exp_array)]) 
-    # TST.append([F_2[i],np.dot(dataL,exp_array)])
+        # These are if the Frequency values are needed
+        # REF.append([F_2[i],np.dot(dataR,exp_array)]) 
+        # TST.append([F_2[i],np.dot(dataL,exp_array)])
     
     
 
@@ -144,7 +145,7 @@ print('Mathing...')
 
 # Converting to polar and creating magnitude arrays
 MAG = 20 * np.log10 (np.abs(TST) / np.abs(REF) )
-PHASE = np.angle(TST) - np.angle(REF)
+PHASE = np.angle(TST, deg= True) - np.angle(REF, deg= True)
 
 print('Plotting...')
 
