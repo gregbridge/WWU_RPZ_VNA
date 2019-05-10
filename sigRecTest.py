@@ -66,7 +66,7 @@ F_2 = np.arange(1000000, 11000000, 1000000)
 # Check Arguments
 
 def main(argv):
-    HELP_TEXT = 'test.py -s (if -s not present, will plot time domain) -d <duration of time plot>'
+    HELP_TEXT = 'test.py -s <1 to sweep, dont include for time> -d <duration of time plot, not implemented yet>'
     sweep = False
     try:
         opts, args = getopt.getopt(argv, "h:s:d",['help','sweep','duration'])
