@@ -1,0 +1,6 @@
+(sym_lib_table
+  (lib (name si5351a)(type Legacy)(uri ${KIPRJMOD}/si5351a.lib)(options "")(descr ""))
+  (lib (name nl7w66)(type Legacy)(uri ${KIPRJMOD}/nl7w66.lib)(options "")(descr ""))
+  (lib (name cx3225)(type Legacy)(uri ${KIPRJMOD}/cx3225.lib)(options "")(descr ""))
+  (lib (name lt6231)(type Legacy)(uri ${KIPRJMOD}/lt6231.lib)(options "")(descr ""))
+)
