@@ -26,10 +26,10 @@ F 3 "" H 2400 1550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L lt6231:SMA_Female Output
+L lt6231:SMA_Female Output1
 U 1 1 5CD9DBE9
 P 5750 1150
-F 0 "Output" H 5851 1125 50  0000 L CNN
+F 0 "Output1" H 5851 1125 50  0000 L CNN
 F 1 "P2" H 5851 1034 50  0000 L CNN
 F 2 "SMA:SMA_EDGE" H 5750 1150 50  0001 C CNN
 F 3 "" H 5750 1150 50  0000 C CNN
@@ -323,10 +323,10 @@ F 3 "" H 2250 5300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L lt6231:SMA_Female Input
+L lt6231:SMA_Female Input1
 U 1 1 5CDAFCCC
 P 900 5800
-F 0 "Input" H 854 6038 50  0000 C CNN
+F 0 "Input1" H 854 6038 50  0000 C CNN
 F 1 "P1" H 854 5947 50  0000 C CNN
 F 2 "SMA:SMA_EDGE" H 900 5800 50  0001 C CNN
 F 3 "" H 900 5800 50  0000 C CNN
@@ -906,12 +906,12 @@ Wire Wire Line
 Text Notes 9000 750  0    157  ~ 0
 RPi-Zero GPIO
 $Comp
-L Connector:AudioJack3 J2
+L Connector_edit:AudioJack3 J2
 U 1 1 5D154F76
 P 9350 4200
 F 0 "J2" H 9070 4133 50  0000 R CNN
 F 1 "Signal_Out" H 9070 4224 50  0000 R CNN
-F 2 "Connector_Audio:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal" H 9350 4200 50  0001 C CNN
+F 2 "SMA:Tayda_3.5mm_stereo_TRS_jack_A-853" H 9350 4200 50  0001 C CNN
 F 3 "~" H 9350 4200 50  0001 C CNN
 	1    9350 4200
 	-1   0    0    -1  
@@ -1064,7 +1064,7 @@ U 1 1 5D227FA2
 P 3200 1750
 F 0 "TP3" H 3350 1850 50  0000 R CNN
 F 1 "LO_I" H 3142 1867 50  0000 R CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 3400 1750 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 3400 1750 50  0001 C CNN
 F 3 "~" H 3400 1750 50  0001 C CNN
 	1    3200 1750
 	-1   0    0    1   
@@ -1080,7 +1080,7 @@ U 1 1 5D224FFE
 P 3150 1450
 F 0 "TP2" H 3150 1650 50  0000 L CNN
 F 1 "REF" H 3200 1550 50  0000 L CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 3350 1450 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 3350 1450 50  0001 C CNN
 F 3 "~" H 3350 1450 50  0001 C CNN
 	1    3150 1450
 	1    0    0    -1  
@@ -1124,7 +1124,7 @@ U 1 1 5D24B467
 P 1900 6200
 F 0 "TP1" H 2050 6400 50  0000 R CNN
 F 1 "Test_IN" H 1950 6500 50  0000 R CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 2100 6200 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 2100 6200 50  0001 C CNN
 F 3 "~" H 2100 6200 50  0001 C CNN
 	1    1900 6200
 	-1   0    0    1   
@@ -1253,7 +1253,7 @@ U 1 1 5D36C93A
 P 10250 5800
 F 0 "TP5" H 10400 6000 50  0000 R CNN
 F 1 "GND2" H 10300 6100 50  0000 R CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 10450 5800 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 10450 5800 50  0001 C CNN
 F 3 "~" H 10450 5800 50  0001 C CNN
 	1    10250 5800
 	1    0    0    -1  
@@ -1264,7 +1264,7 @@ U 1 1 5D36F7A6
 P 9800 5800
 F 0 "TP4" H 9950 6000 50  0000 R CNN
 F 1 "GND1" H 9850 6100 50  0000 R CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 10000 5800 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 10000 5800 50  0001 C CNN
 F 3 "~" H 10000 5800 50  0001 C CNN
 	1    9800 5800
 	1    0    0    -1  

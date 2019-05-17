@@ -1,4 +1,4 @@
-15927281929890429
+15928839979544429
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -65680,6 +65680,13 @@ SMA_EDGE
 0
 6
 2
+SMA
+Tayda_3.5mm_stereo_TRS_jack_A-853
+
+
+0
+5
+5
 SMA
 TI_BoosterPack
 http://processors.wiki.ti.com/index.php/BYOB
