@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 10)
+    (drawings 13)
     (tracks 356)
     (zones 0)
     (modules 46)
@@ -11,8 +11,8 @@
 
   (page A4)
   (layers
-    (0 F.Cu signal)
-    (31 B.Cu signal)
+    (0 F.Cu signal hide)
+    (31 B.Cu signal hide)
     (32 B.Adhes user)
     (33 F.Adhes user hide)
     (34 B.Paste user)
@@ -1986,6 +1986,15 @@
     )
   )
 
+  (gr_text "https://github.com/gregbridge/WWU_RPZ_VNA\nMade for ENGR 357 Project\nWalla Walla University 2019\nGreg Birge" (at 124.4346 76.2 270) (layer B.SilkS) (tstamp 5CDF7809)
+    (effects (font (size 0.75 0.75) (thickness 0.1)) (justify mirror))
+  )
+  (gr_text "Raspberry Pi-GPIO Header\nVector Network Analyzer\nRaspberry Pi Zero HAT" (at 138.2268 76.1746 270) (layer B.SilkS) (tstamp 5CDF7903)
+    (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
+  )
+  (gr_text "2019 WWU \nR-Pi HAT VNA v 0.1\nGreg Birge" (at 119.7356 106.2482) (layer F.SilkS) (tstamp 5CDF7780)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
   (gr_line (start 104.648 47.625) (end 104.648 107.7468) (layer Edge.Cuts) (width 0.05) (tstamp 5CDF7410))
   (gr_line (start 144.7038 44.577) (end 107.696 44.577) (layer Edge.Cuts) (width 0.05) (tstamp 5CDF73C7))
   (gr_line (start 147.7518 107.7468) (end 147.7518 47.625) (layer Edge.Cuts) (width 0.05) (tstamp 5CDF73C5))
